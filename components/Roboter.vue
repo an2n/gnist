@@ -72,16 +72,14 @@
 .roboter :deep(.luft) {
   transform-box: fill-box;
   opacity: 0;
-  animation: 3.2s ease-out infinite;
 }
 .roboter :deep(.luft.venstre) {
   transform-origin: left center;
-  animation-name: ut-hoyre;
+  animation: ut-hoyre 3.2s ease-out infinite;
 }
 .roboter :deep(.luft.hoyre) {
   transform-origin: right center;
-  animation-name: ut-venstre;
-  animation-delay: 1.6s;
+  animation: ut-venstre 3.2s ease-out 1.6s infinite;
 }
 
 @keyframes ut-hoyre {
