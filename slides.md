@@ -52,7 +52,7 @@ clicks: 2
 <div class="alle mt-2 grid grid-cols-[3fr_2fr] gap-8 items-start">
 <ChatStrom live :fart="60" prompt="Skriv en intro jeg kan lese opp på Gnist-presentasjonen min.">
   <p><Hl :at="2" nr="3">Selvfølgelig! Her er en intro du kan lese opp:</Hl></p>
-  <p>Hei, jeg heter Anton <Hl :at="2" nr="10">👋</Hl> Jeg er konsulent i Miles som flyttet fra Oslo til Bergen for kjærligheten <Hl :at="2" nr="10">–</Hl> <Hl :at="2" nr="1 · 2">et avgjørende vendepunkt</Hl>. <Hl :at="2" nr="3">[Sett inn anekdote om regn her]</Hl></p>
+  <p>Hei, jeg heter Anton <Hl :at="2" nr="10">👋</Hl> Jeg er konsulent i Miles <Hl :at="2" nr="10">🫶</Hl> Flyttet fra Oslo til Bergen for kjærligheten <Hl :at="2" nr="10">–</Hl> <Hl :at="2" nr="1 · 2">et avgjørende vendepunkt</Hl>. <Hl :at="2" nr="3">[Sett inn anekdote om regn her]</Hl></p>
   <p>Tekst skrevet med AI er <Hl :at="2" nr="6">ikke bare irriterende, men avslørende.</Hl> <Hl :at="2" nr="8">Studier viser</Hl> at leserne merker det <Hl :at="2" nr="10">👀</Hl>, <Hl :at="2" nr="5">noe som understreker hvor viktig det er å være ekte</Hl>. <Hl :at="2" nr="10">🙌🔥</Hl></p>
   <p>I dag skal du lære å <Hl :at="2" nr="7">se mønstrene, unngå dem og skrive</Hl> <Hl :at="2" nr="4">unikt</Hl>. <Hl :at="2" nr="9">Etter regn kommer sol.</Hl> <Hl :at="2" nr="10">☀️</Hl></p>
   <p><Hl :at="2" nr="3">Vil du at jeg gjør den mer personlig?</Hl></p>

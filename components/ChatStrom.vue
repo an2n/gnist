@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import type { Ref } from 'vue'
 import { useIsSlideActive, useSlideContext } from '@slidev/client'
 
 // Chat der prompten skrives inn når sliden vises, og svaret strømmes ord for ord på klikk `at`.
 // Med `live` skriver du prompten selv, og Enter sender den.
 // Med `prompt2` sendes en ny melding i samme chat på klikk `at2`, og svaret ligger i sloten `svar2`.
+// `historikk` er tidligere meldinger som står over, og `svarHtml` erstatter sloten (brukt av Harness).
 const props = withDefaults(defineProps<{
   prompt: string
+  historikk?: { fra: 'meg' | 'claude', html: string }[]
+  svarHtml?: string
+  svarHtml2?: string
   prompt2?: string
   at2?: number
+  skriv2?: number
   tittel?: string
   at?: number
   fart?: number
@@ -24,10 +30,17 @@ const sendt = computed(() => statisk.value || $clicks.value >= props.at)
 const sendt2 = computed(() => !!props.prompt2 && (statisk.value || $clicks.value >= (props.at2 ?? Infinity)))
 
 const samtale = ref<HTMLElement>()
+const traad = ref<HTMLElement>()
 const svar = ref<HTMLElement>()
 const svar2 = ref<HTMLElement>()
 const skrevet = ref(0)
+const skrevet2 = ref(0)
+// Mellom svar 1 og klikk `at2` skrives prompt2 inn i feltet, rett etter svaret eller på klikk `skriv2`
+const venter2 = computed(() => sendt.value && !!props.prompt2 && !sendt2.value)
+const viser2 = computed(() => venter2.value && (props.skriv2 === undefined ? !strommer.value : $clicks.value >= props.skriv2))
 const strommer = ref<HTMLElement>()
+const emit = defineEmits<{ strommer: [boolean] }>()
+watch(strommer, v => emit('strommer', !!v))
 const felt = ref<HTMLInputElement>()
 const liveTekst = ref('')
 const vistPrompt = computed(() => props.live && liveTekst.value.trim() ? liveTekst.value : props.prompt)
@@ -109,9 +122,6 @@ function vis(d: Svar, antall: number) {
     node.data = full.slice(0, Math.max(0, antall - start))
   for (const { el, start } of d.blokker)
     el.style.display = antall > start ? '' : 'none'
-  // Følger med nederst, som en ekte chat
-  if (samtale.value)
-    samtale.value.scrollTop = samtale.value.scrollHeight
 }
 
 function stopp() {
@@ -122,6 +132,9 @@ function stopp() {
 
 function strom(rot: HTMLElement) {
   const d = samle(rot)
+  // Tomt svar, ingenting å strømme
+  if (!d.tekst.trim())
+    return vis(d, 0)
   strommer.value = rot
   let teller = 0
   let forrige = 0
@@ -131,6 +144,8 @@ function strom(rot: HTMLElement) {
     if (teller >= d.tekst.length) {
       vis(d, d.tekst.length)
       strommer.value = undefined
+      if (venter2.value && props.skriv2 === undefined)
+        skrivInn(props.prompt2!, skrevet2)
       return
     }
     vis(d, d.tekst.lastIndexOf(' ', Math.floor(teller)) + 1)
@@ -155,15 +170,16 @@ function pause(tegn: string) {
   return ms
 }
 
-function skrivPrompt() {
+function skrivInn(tekst: string, teller: Ref<number>) {
   clearTimeout(skriving)
-  skrevet.value = 0
+  teller.value = 0
   const neste = () => {
-    if (++skrevet.value < props.prompt.length)
-      skriving = window.setTimeout(neste, pause(props.prompt[skrevet.value - 1]))
+    if (++teller.value < tekst.length)
+      skriving = window.setTimeout(neste, pause(tekst[teller.value - 1]))
   }
   skriving = window.setTimeout(neste, 800)
 }
+const skrivPrompt = () => skrivInn(props.prompt, skrevet)
 
 function oppdater(forrigeKlikk?: number) {
   stopp()
@@ -176,12 +192,18 @@ function oppdater(forrigeKlikk?: number) {
     else
       vis(samle(rot), erSendt ? Infinity : 0)
   }
+  if (!statisk.value && viser2.value && forrigeKlikk === props.skriv2! - 1 && $clicks.value === props.skriv2)
+    skrivInn(props.prompt2!, skrevet2)
+  else if (viser2.value && !strommer.value)
+    skrevet2.value = props.prompt2!.length
 }
 
 watch($clicks, (_, forrige) => nextTick(() => oppdater(forrige)))
 watch(aktiv, (a) => {
   if (!a || sendt.value)
     return
+  if (props.historikk?.length)
+    return props.live || skrivPrompt()
   hils(() => !props.live && skrivPrompt())
   if (!props.live)
     return
@@ -189,8 +211,19 @@ watch(aktiv, (a) => {
   nextTick(() => felt.value?.focus({ preventScroll: true }))
 }, { immediate: true })
 
-onMounted(() => oppdater())
+// Følger med nederst som en ekte chat, også når sliden blir synlig etter å ha vært forhåndslastet skjult
+const folg = new ResizeObserver(() => {
+  if (samtale.value)
+    samtale.value.scrollTop = samtale.value.scrollHeight
+})
+
+onMounted(() => {
+  oppdater()
+  folg.observe(samtale.value!)
+  folg.observe(traad.value!)
+})
 onBeforeUnmount(() => {
+  folg.disconnect()
   stopp()
   clearTimeout(skriving)
   clearTimeout(hilsing)
@@ -204,7 +237,18 @@ onBeforeUnmount(() => {
   <div class="mockup chatbot">
     <div class="topp">{{ tittel }}</div>
     <div ref="samtale" class="samtale">
-      <div v-if="hilst && !sendt" class="svar-rad">
+      <div ref="traad" class="traad">
+      <template v-for="(m, i) in historikk" :key="i">
+        <div v-if="m.fra === 'meg'" class="bruker-rad historikk">
+          <div class="bruker" v-html="m.html" />
+          <img src="/anton.jpg" alt="" class="avatar">
+        </div>
+        <div v-else class="svar-rad historikk">
+          <img src="/claude.svg" alt="Claude" class="claude">
+          <div class="svar" v-html="m.html" />
+        </div>
+      </template>
+      <div v-if="hilst && !sendt && !historikk?.length" class="svar-rad">
         <img src="/claude.svg" alt="Claude" class="claude" :class="{ strommer: hilst < hilsen.length }">
         <div class="svar">{{ hilsen.slice(0, hilst) }}</div>
       </div>
@@ -214,24 +258,28 @@ onBeforeUnmount(() => {
       </div>
       <div v-show="sendt" class="svar-rad">
         <img src="/claude.svg" alt="Claude" class="claude" :class="{ strommer: strommer && strommer === svar }">
-        <div ref="svar" class="svar"><slot /></div>
+        <div v-if="svarHtml" ref="svar" class="svar" v-html="svarHtml" />
+        <div v-else ref="svar" class="svar"><slot /></div>
       </div>
       <template v-if="prompt2">
         <div v-if="sendt2" class="bruker-rad">
           <div class="bruker">{{ prompt2 }}</div>
           <img src="/anton.jpg" alt="" class="avatar">
         </div>
-        <div v-show="sendt2" class="svar-rad">
+        <div v-show="sendt2 && (svarHtml2 || $slots.svar2)" class="svar-rad">
           <img src="/claude.svg" alt="Claude" class="claude" :class="{ strommer: strommer && strommer === svar2 }">
-          <div ref="svar2" class="svar"><slot name="svar2" /></div>
+          <div v-if="svarHtml2" ref="svar2" class="svar" v-html="svarHtml2" />
+          <div v-else ref="svar2" class="svar"><slot name="svar2" /></div>
         </div>
       </template>
+      </div>
     </div>
     <div class="input">
-      <span v-if="sendt">Svar til Claude …</span>
+      <span v-if="viser2" class="skriver">{{ prompt2!.slice(0, skrevet2) }}<span class="markor" /></span>
+      <span v-else-if="sendt">Svar til Claude …</span>
       <input v-else-if="live" ref="felt" :value="liveTekst" class="felt" placeholder="Svar til Claude …" @input="skriv(($event.target as HTMLInputElement).value)" @keydown="tast">
       <span v-else class="skriver">{{ prompt.slice(0, skrevet) }}<span class="markor" /></span>
-      <span class="send" :class="{ klikkbar: !sendt }" @click.stop="!sendt && send()">↑</span>
+      <span class="send" :class="{ klikkbar: !sendt || venter2 }" @click.stop="(!sendt || venter2) && send()">↑</span>
     </div>
   </div>
 </template>
@@ -283,7 +331,7 @@ onBeforeUnmount(() => {
   display: flex;
   gap: 0.6rem;
 }
-.samtale > * + * {
+.traad > * + * {
   margin-top: 0.6rem;
 }
 .claude {
