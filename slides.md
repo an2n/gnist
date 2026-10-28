@@ -108,7 +108,7 @@ Jeg kom over denne artikkelen i August som fikk gjennomgå på Reddit. Ikke pga.
 clicks: 1
 ---
 
-# … og de blir lei
+# … og de liker det ikke
 
 <div class="grid grid-cols-2 gap-8 items-start">
 <Kode24 tittel="– Forbud mot KI er dømt til å feile" rolle="Ansvarlig redaktør i kode24" dato="15.04.2026">
@@ -122,7 +122,7 @@ clicks: 1
 </div>
 
 <!--
-Og de blir lei.
+Og de liker det ikke.
 
 Her et innlegg på Kode24 som fikk en del sinte fjes, og en leser skrev: «Du bruker tankestrek = Det er skrevet av ChatGPT.»
 
