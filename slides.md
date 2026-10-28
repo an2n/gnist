@@ -53,7 +53,7 @@ clicks: 2
 <ChatStrom live :fart="60" prompt="Skriv en intro jeg kan lese opp på Gnist-presentasjonen min.">
   <p><Hl :at="2" nr="3">Selvfølgelig! Her er en intro du kan lese opp:</Hl></p>
   <p>Hei, jeg heter Anton <Hl :at="2" nr="10">👋</Hl> Jeg er konsulent i Miles som flyttet fra Oslo til Bergen for kjærligheten <Hl :at="2" nr="10">–</Hl> <Hl :at="2" nr="1 · 2">et avgjørende vendepunkt</Hl>. <Hl :at="2" nr="3">[Sett inn anekdote om regn her]</Hl></p>
-  <p>Tekst skrevet med AI er <Hl :at="2" nr="6">ikke bare irriterende, men avslørende.</Hl> <Hl :at="2" nr="10">👀</Hl> <Hl :at="2" nr="8">Studier viser</Hl> at leserne merker det, <Hl :at="2" nr="5">noe som understreker hvor viktig det er å være ekte</Hl>. <Hl :at="2" nr="10">🙌🔥</Hl></p>
+  <p>Tekst skrevet med AI er <Hl :at="2" nr="6">ikke bare irriterende, men avslørende.</Hl> <Hl :at="2" nr="8">Studier viser</Hl> at leserne merker det <Hl :at="2" nr="10">👀</Hl>, <Hl :at="2" nr="5">noe som understreker hvor viktig det er å være ekte</Hl>. <Hl :at="2" nr="10">🙌🔥</Hl></p>
   <p>I dag skal du lære å <Hl :at="2" nr="7">se mønstrene, unngå dem og skrive</Hl> <Hl :at="2" nr="4">unikt</Hl>. <Hl :at="2" nr="9">Etter regn kommer sol.</Hl> <Hl :at="2" nr="10">☀️</Hl></p>
   <p><Hl :at="2" nr="3">Vil du at jeg gjør den mer personlig?</Hl></p>
 </ChatStrom>
@@ -156,52 +156,28 @@ Og hvis folk oppfatter talen som AI-generert, har produktet mitt feilet. Den ska
 -->
 
 ---
-clicks: 4
+clicks: 1
 ---
 
-# Så hvorfor skriver AI sånn?
-
-<div class="hvorfor grid grid-cols-3 gap-5 mt-6">
-<div v-click="1" class="kort">
-  <div class="navn">Den velger det vanligste</div>
-  <div class="visuelt">
-    <div class="felt">I en verden i stadig <span class="stabel"><span :class="{ skjult: $clicks >= 2 }">…</span><span class="uth" :class="{ skjult: $clicks < 2 }">endring</span></span></div>
-    <div class="forslag" :class="{ synlig: $clicks >= 2 }"><span>utvikling</span><span class="topp">endring</span><span>vekst</span></div>
-  </div>
-  <div class="kilde">Reinhart m.fl. (2025), PNAS</div>
-</div>
-<div v-click="3" class="kort">
-  <div class="navn">Den er trent til å behage</div>
-  <div class="visuelt">
-    <div class="sporsmal">«Regner det mye i Bergen?»</div>
-    <div class="svar">Ja, ganske mye.</div>
-    <div class="svar valgt"><b>Godt spørsmål!</b> 🌧️ Bergen er kjent for:<br>• regn • paraplyer • fjell<span class="stemme">👍 Valgt</span></div>
-    <div class="forklar">Folk velger det lange, så AI lærer det</div>
-  </div>
-  <div class="kilde">Singhal m.fl. (2024), COLM</div>
-</div>
-<div v-click="4" class="kort">
-  <div class="navn">Den er mest trent på engelsk</div>
-  <div class="visuelt oversett">
-    <div><i>delve into</i></div>
-    <div class="pil">↓</div>
-    <div><span class="uth">dykke ned i</span></div>
-  </div>
-  <div class="kilde">Schut, Gal og Farquhar (2025)</div>
-</div>
+<div class="flex flex-col items-center gap-3 mt-2">
+<ChatStrom class="w-full" :fart="40" prompt="Hvorfor skriver AI sånn?">
+  <p>Det finnes ikke ett fasitsvar, men tre forklaringer går igjen.</p>
+  <p><b>Jeg velger det vanligste.</b> Jeg fungerer litt som autofullfør. Skriver du «i en verden i stadig …», er «endring» det mest sannsynlige neste ordet, og derfor dukker klisjeene opp.</p>
+  <p><b>Jeg er trent til å behage.</b> Under treningen velger folk mellom to svar. De velger ofte det lange med lister og fet skrift, selv om det korte sier det samme.</p>
+  <p><b>Jeg er mest trent på engelsk.</b> Selv når jeg skriver norsk, skinner engelsken gjennom, og «Let's dive in!» blir til «La oss dykke inn!».</p>
+</ChatStrom>
+<div v-click="1" class="text-xs opacity-60">Reinhart m.fl. (2025), PNAS · Singhal m.fl. (2024), COLM · Schut, Gal og Farquhar (2025)</div>
 </div>
 
 <!--
-Så hvorfor skriver AI egentlig sånn? Det finnes ikke ett fasitsvar, men det er tre forklaringer som går igjen.
+Så hvorfor skriver AI egentlig sånn? Jeg spurte Claude.
 
-Den første er at den velger det vanligste. Den fungerer litt som autofullfør på mobilen. Hvis jeg sier «i en verden i stadig …», hva tenker dere da?
+Det finnes ikke ett fasitsvar, men det er tre forklaringer som går igjen.
 
-Endring, ja. AI velger det samme, og det er derfor klisjeene dukker opp.
+Den første er at den velger det vanligste. Den fungerer litt som autofullfør på mobilen. «I en verden i stadig endring», det er derfor klisjeene dukker opp.
 
-Den andre er at den er trent til å behage. Når modellene trenes, får folk to svar og velger det beste.
-De velger ofte det lange svaret med lister og fet skrift, selv om det korte sier det samme. 
+Den andre er at den er trent til å behage. Når modellene trenes, får folk to svar og velger det beste. De velger ofte det lange svaret med lister og fet skrift, selv om det korte sier det samme. Så det er det den lærer.
 
-Så det er det den lærer.
 Og den tredje er at den er mest trent på engelsk. Så selv når den skriver norsk, skinner engelsken ofte gjennom.
 -->
 
@@ -627,7 +603,7 @@ Men den må limes inn hver gang, så jeg foretrekker noe annet.
 clicks: 5
 ---
 
-# … eller en skill du kan bruke
+# … eller en plugin du kan bruke
 
 <Terminal class="mt-12" lys>
 <div v-click="1" class="linje bruker">Skriv 100 ord i min stemme om hvor bra AI har blitt til å skrive som et menneske.</div>
@@ -658,44 +634,44 @@ clicks: 5
 </div>
 
 <!--
-Jeg ble ganske lei av å lime inn den prompten, så jeg laget en skill som heter ghostwriter.
-En skill er en oppskrift Claude henter selv når den trengs.
+Jeg ble ganske lei av å lime inn den prompten, så jeg laget en plugin som heter ghostwriter.
+Den har tre skills. En skill er en oppskrift Claude henter selv når den trengs.
 Den skriver i din stemme, sjekker teksten etter mønstrene og retter dem.
 Stemmen lærer den fra to–tre tekster du har skrevet selv.
 -->
 
 ---
-clicks: 3
+clicks: 4
 ---
 
-# Uten og med skill
+# Uten og med plugin
 
-<div class="tett grid grid-cols-2 gap-8 items-start">
-<div>
-<Chatbot tittel="Uten skill" prompt="Skriv 100 ord i min stemme om hvor bra AI har blitt til å skrive som et menneske.">
+<div class="tett flex justify-center">
+<Gnister :at="3" class="w-[40rem]">
+<ChatStrom class="!max-w-none h-[24rem]" :fart="60" prompt="Skriv 100 ord i min stemme om hvor bra AI har blitt til å skrive som et menneske." prompt2="Prøv igjen med ghostwriter." :at2="3">
   <p>AI har blitt utrolig god til å skrive som et menneske.</p>
-  <p>Det handler <Hl :at="1">ikke lenger bare om</Hl> <Hl :at="1">grammatikk, struktur og fine formuleringer</Hl>. Dagens AI kan fange <Hl :at="1">tone, humor, nyanser</Hl> og tilpasse språket til hvem du skriver for.</p>
-  <p>Men det mest interessante er <Hl :at="1">kanskje ikke hvor menneskelig AI kan skrive – det er hvor</Hl> vanskelig det kan bli å skille mellom ekte og kunstig.</p>
-  <p>Samtidig er det fortsatt <Hl :at="1">én ting AI ikke har:</Hl> <Hl :at="1">egne erfaringer, følelser og perspektiver</Hl>.</p>
+  <p>Det handler <Hl :at="2">ikke lenger bare om</Hl> <Hl :at="2">grammatikk, struktur og fine formuleringer</Hl>. Dagens AI kan fange <Hl :at="2">tone, humor, nyanser</Hl> og tilpasse språket til hvem du skriver for.</p>
+  <p>Men det mest interessante er <Hl :at="2">kanskje ikke hvor menneskelig AI kan skrive – det er hvor</Hl> vanskelig det kan bli å skille mellom ekte og kunstig.</p>
+  <p>Samtidig er det fortsatt <Hl :at="2">én ting AI ikke har:</Hl> <Hl :at="2">egne erfaringer, følelser og perspektiver</Hl>.</p>
   <p>Derfor tror jeg fremtidens beste tekster blir skrevet i samarbeid mellom menneske og AI.</p>
-  <p><Hl :at="1">AI kan finne ordene. Men mennesket må fortsatt ha noe å si.</Hl></p>
-</Chatbot>
-</div>
-<Chatbot v-click="2" tittel="Med skill" prompt="Skriv 100 ord i min stemme om hvor bra AI har blitt til å skrive som et menneske.">
+  <p><Hl :at="2">AI kan finne ordene. Men mennesket må fortsatt ha noe å si.</Hl></p>
+  <template #svar2>
   <p>AI skriver mye bedre enn før.</p>
   <p>For to år siden var det lett å se. Rare ord og altfor mange emojier. Nå må jeg lese mange e-poster to ganger før jeg er sikker.</p>
-  <p>Men leserne blir også flinkere. <Hl :at="3" gronn>I en studie fra 2025 skulle folk gjette om 300 artikler var skrevet av AI. De som sjelden bruker ChatGPT, traff omtrent som om de kastet mynt. De som bruker det mye, fant 93 %.</Hl></p>
-  <p>Så jo mer folk bruker AI, jo lettere er det å se. Litt ironisk <Hl :at="3" gronn>:)</Hl></p>
-</Chatbot>
+  <p>Men leserne blir også flinkere. <Hl :at="4" gronn>I en studie fra 2025 skulle folk gjette om 300 artikler var skrevet av AI. De som sjelden bruker ChatGPT, traff omtrent som om de kastet mynt. De som bruker det mye, fant 93 %.</Hl></p>
+  <p>Så jo mer folk bruker AI, jo lettere er det å se. Litt ironisk <Hl :at="4" gronn>:)</Hl></p>
+  </template>
+</ChatStrom>
+</Gnister>
 </div>
 
-<div v-click="3" class="absolute" style="left: 507px; top: 436px"><span class="dom">Sjekk tallene!</span></div>
+<div v-click="4" class="absolute right-14 bottom-28"><span class="dom">Sjekk tallene!</span></div>
 
 <!--
 «AI kan finne ordene. Men mennesket må fortsatt ha noe å si.» Høres det kjent ut?
-Her er samme prompt og samme modell, uten og med skill.
+Her er samme modell, først uten og så med ghostwriter.
 Uten får du tretall, «ikke lenger bare» og en optimistisk avslutning.
-Med skill blir det mer ujevnt og personlig.
+Så ber jeg den prøve igjen med ghostwriter, og da blir det mer ujevnt og personlig.
 Den viser til studien vi så i starten. Her stemmer tallene, men sjekk alltid selv.
 -->
 

@@ -4,8 +4,11 @@ import { useIsSlideActive, useSlideContext } from '@slidev/client'
 
 // Chat der prompten skrives inn når sliden vises, og svaret strømmes ord for ord på klikk `at`.
 // Med `live` skriver du prompten selv, og Enter sender den.
+// Med `prompt2` sendes en ny melding i samme chat på klikk `at2`, og svaret ligger i sloten `svar2`.
 const props = withDefaults(defineProps<{
   prompt: string
+  prompt2?: string
+  at2?: number
   tittel?: string
   at?: number
   fart?: number
@@ -18,10 +21,13 @@ const { $clicks, $renderContext, $slidev } = useSlideContext()
 const aktiv = useIsSlideActive()
 const statisk = computed(() => !['slide', 'presenter'].includes($renderContext.value))
 const sendt = computed(() => statisk.value || $clicks.value >= props.at)
+const sendt2 = computed(() => !!props.prompt2 && (statisk.value || $clicks.value >= (props.at2 ?? Infinity)))
 
+const samtale = ref<HTMLElement>()
 const svar = ref<HTMLElement>()
+const svar2 = ref<HTMLElement>()
 const skrevet = ref(0)
-const strommer = ref(false)
+const strommer = ref<HTMLElement>()
 const felt = ref<HTMLInputElement>()
 const liveTekst = ref('')
 const vistPrompt = computed(() => props.live && liveTekst.value.trim() ? liveTekst.value : props.prompt)
@@ -51,10 +57,13 @@ function tast(e: KeyboardEvent) {
   }
 }
 
+interface Svar {
+  noder: { node: Text, start: number, full: string }[]
+  blokker: { el: HTMLElement, start: number }[]
+  tekst: string
+}
+
 const original = new WeakMap<Text, string>()
-let noder: { node: Text, start: number, full: string }[] = []
-let blokker: { el: HTMLElement, start: number }[] = []
-let tekst = ''
 let ramme = 0
 let tenker = 0
 let skriving = 0
@@ -77,56 +86,57 @@ function hils(ferdig: () => void) {
   hilsing = window.setTimeout(neste, 400)
 }
 
-function samle() {
-  noder = []
-  blokker = []
-  tekst = ''
-  const walker = document.createTreeWalker(svar.value!, NodeFilter.SHOW_TEXT)
+function samle(rot: HTMLElement): Svar {
+  const d: Svar = { noder: [], blokker: [], tekst: '' }
+  const walker = document.createTreeWalker(rot, NodeFilter.SHOW_TEXT)
   while (walker.nextNode()) {
     const node = walker.currentNode as Text
     if (!original.has(node))
       original.set(node, node.data)
     const full = original.get(node)!
-    noder.push({ node, start: tekst.length, full })
-    tekst += full
+    d.noder.push({ node, start: d.tekst.length, full })
+    d.tekst += full
   }
-  for (const el of Array.from(svar.value!.children) as HTMLElement[]) {
-    const forste = noder.find(n => el.contains(n.node) && n.full.trim())
-    blokker.push({ el, start: forste ? forste.start : 0 })
+  for (const el of Array.from(rot.children) as HTMLElement[]) {
+    const forste = d.noder.find(n => el.contains(n.node) && n.full.trim())
+    d.blokker.push({ el, start: forste ? forste.start : 0 })
   }
+  return d
 }
 
-function vis(antall: number) {
-  for (const { node, start, full } of noder)
+function vis(d: Svar, antall: number) {
+  for (const { node, start, full } of d.noder)
     node.data = full.slice(0, Math.max(0, antall - start))
-  for (const { el, start } of blokker)
+  for (const { el, start } of d.blokker)
     el.style.display = antall > start ? '' : 'none'
+  // Følger med nederst, som en ekte chat
+  if (samtale.value)
+    samtale.value.scrollTop = samtale.value.scrollHeight
 }
 
 function stopp() {
   cancelAnimationFrame(ramme)
   clearTimeout(tenker)
-  strommer.value = false
+  strommer.value = undefined
 }
 
-function strom() {
-  stopp()
-  samle()
-  strommer.value = true
+function strom(rot: HTMLElement) {
+  const d = samle(rot)
+  strommer.value = rot
   let teller = 0
   let forrige = 0
   const steg = (na: number) => {
     teller += (na - forrige) / 1000 * props.fart
     forrige = na
-    if (teller >= tekst.length) {
-      vis(tekst.length)
-      strommer.value = false
+    if (teller >= d.tekst.length) {
+      vis(d, d.tekst.length)
+      strommer.value = undefined
       return
     }
-    vis(tekst.lastIndexOf(' ', Math.floor(teller)) + 1)
+    vis(d, d.tekst.lastIndexOf(' ', Math.floor(teller)) + 1)
     ramme = requestAnimationFrame(steg)
   }
-  vis(0)
+  vis(d, 0)
   // Litt betenkningstid før svaret begynner å komme, som en ekte modell
   tenker = window.setTimeout(() => {
     forrige = performance.now()
@@ -156,21 +166,16 @@ function skrivPrompt() {
 }
 
 function oppdater(forrigeKlikk?: number) {
-  if (!svar.value)
-    return
-  if (sendt.value)
-    hilst.value = hilsen.length
-  if (!sendt.value) {
-    stopp()
-    samle()
-    vis(0)
-    return
-  }
-  if (!statisk.value && forrigeKlikk === props.at - 1 && $clicks.value === props.at)
-    return strom()
   stopp()
-  samle()
-  vis(tekst.length)
+  const turer: [HTMLElement | undefined, boolean, number | undefined][] = [[svar.value, sendt.value, props.at], [svar2.value, sendt2.value, props.at2]]
+  for (const [rot, erSendt, at] of turer) {
+    if (!rot)
+      continue
+    if (!statisk.value && erSendt && forrigeKlikk === at! - 1 && $clicks.value === at)
+      strom(rot)
+    else
+      vis(samle(rot), erSendt ? Infinity : 0)
+  }
 }
 
 watch($clicks, (_, forrige) => nextTick(() => oppdater(forrige)))
@@ -190,16 +195,16 @@ onBeforeUnmount(() => {
   clearTimeout(skriving)
   clearTimeout(hilsing)
   kanal?.close()
-  samle()
-  vis(tekst.length)
+  for (const rot of [svar.value, svar2.value])
+    rot && vis(samle(rot), Infinity)
 })
 </script>
 
 <template>
   <div class="mockup chatbot">
     <div class="topp">{{ tittel }}</div>
-    <div class="samtale">
-      <div v-if="hilst" class="svar-rad">
+    <div ref="samtale" class="samtale">
+      <div v-if="hilst && !sendt" class="svar-rad">
         <img src="/claude.svg" alt="Claude" class="claude" :class="{ strommer: hilst < hilsen.length }">
         <div class="svar">{{ hilsen.slice(0, hilst) }}</div>
       </div>
@@ -208,21 +213,33 @@ onBeforeUnmount(() => {
         <img src="/anton.jpg" alt="" class="avatar">
       </div>
       <div v-show="sendt" class="svar-rad">
-        <img src="/claude.svg" alt="Claude" class="claude" :class="{ strommer }">
+        <img src="/claude.svg" alt="Claude" class="claude" :class="{ strommer: strommer && strommer === svar }">
         <div ref="svar" class="svar"><slot /></div>
       </div>
+      <template v-if="prompt2">
+        <div v-if="sendt2" class="bruker-rad">
+          <div class="bruker">{{ prompt2 }}</div>
+          <img src="/anton.jpg" alt="" class="avatar">
+        </div>
+        <div v-show="sendt2" class="svar-rad">
+          <img src="/claude.svg" alt="Claude" class="claude" :class="{ strommer: strommer && strommer === svar2 }">
+          <div ref="svar2" class="svar"><slot name="svar2" /></div>
+        </div>
+      </template>
     </div>
     <div class="input">
       <span v-if="sendt">Svar til Claude …</span>
       <input v-else-if="live" ref="felt" :value="liveTekst" class="felt" placeholder="Svar til Claude …" @input="skriv(($event.target as HTMLInputElement).value)" @keydown="tast">
       <span v-else class="skriver">{{ prompt.slice(0, skrevet) }}<span class="markor" /></span>
-      <span class="send" :class="{ klikkbar: live && !sendt }" @click.stop="live && !sendt && send()">↑</span>
+      <span class="send" :class="{ klikkbar: !sendt }" @click.stop="!sendt && send()">↑</span>
     </div>
   </div>
 </template>
 
 <style scoped>
 .chatbot {
+  display: flex;
+  flex-direction: column;
   background: #faf9f5;
   border: 1px solid #e8e6dc;
   color: #1f1e1d;
@@ -235,8 +252,11 @@ onBeforeUnmount(() => {
   border-bottom: 1px solid #ecebe4;
 }
 .samtale {
+  flex: 1;
   padding: 0.8rem 1rem 0.5rem;
   min-height: 2rem;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 .bruker-rad {
   display: flex;
