@@ -36,11 +36,15 @@ function skriv(verdi: string) {
   kanal?.postMessage(verdi)
 }
 
+function send() {
+  felt.value?.blur()
+  $slidev.nav.next()
+}
+
 function tast(e: KeyboardEvent) {
   if (['Enter', 'ArrowRight', 'ArrowDown', 'PageDown'].includes(e.key)) {
     e.preventDefault()
-    felt.value?.blur()
-    $slidev.nav.next()
+    send()
   }
   else if (e.key === 'Escape') {
     felt.value?.blur()
@@ -54,6 +58,24 @@ let tekst = ''
 let ramme = 0
 let tenker = 0
 let skriving = 0
+let hilsing = 0
+
+// Claude hilser først, strømmet ord for ord, før prompten skrives
+const hilsen = 'Hvordan kan jeg hjelpe deg i dag?'
+const hilst = ref(0)
+function hils(ferdig: () => void) {
+  clearTimeout(hilsing)
+  hilst.value = 0
+  const neste = () => {
+    const mellomrom = hilsen.indexOf(' ', hilst.value + 1)
+    hilst.value = mellomrom < 0 ? hilsen.length : mellomrom + 1
+    if (hilst.value < hilsen.length)
+      hilsing = window.setTimeout(neste, 120)
+    else
+      ferdig()
+  }
+  hilsing = window.setTimeout(neste, 400)
+}
 
 function samle() {
   noder = []
@@ -136,6 +158,8 @@ function skrivPrompt() {
 function oppdater(forrigeKlikk?: number) {
   if (!svar.value)
     return
+  if (sendt.value)
+    hilst.value = hilsen.length
   if (!sendt.value) {
     stopp()
     samle()
@@ -153,8 +177,9 @@ watch($clicks, (_, forrige) => nextTick(() => oppdater(forrige)))
 watch(aktiv, (a) => {
   if (!a || sendt.value)
     return
+  hils(() => !props.live && skrivPrompt())
   if (!props.live)
-    return skrivPrompt()
+    return
   skriv('')
   nextTick(() => felt.value?.focus({ preventScroll: true }))
 }, { immediate: true })
@@ -163,6 +188,7 @@ onMounted(() => oppdater())
 onBeforeUnmount(() => {
   stopp()
   clearTimeout(skriving)
+  clearTimeout(hilsing)
   kanal?.close()
   samle()
   vis(tekst.length)
@@ -173,6 +199,10 @@ onBeforeUnmount(() => {
   <div class="mockup chatbot">
     <div class="topp">{{ tittel }}</div>
     <div class="samtale">
+      <div v-if="hilst" class="svar-rad">
+        <img src="/claude.svg" alt="Claude" class="claude" :class="{ strommer: hilst < hilsen.length }">
+        <div class="svar">{{ hilsen.slice(0, hilst) }}</div>
+      </div>
       <div v-if="sendt" class="bruker-rad">
         <div class="bruker">{{ vistPrompt }}</div>
         <img src="/anton.jpg" alt="" class="avatar">
@@ -184,9 +214,9 @@ onBeforeUnmount(() => {
     </div>
     <div class="input">
       <span v-if="sendt">Svar til Claude …</span>
-      <input v-else-if="live" ref="felt" :value="liveTekst" class="felt" placeholder="Hvordan kan jeg hjelpe deg i dag?" @input="skriv(($event.target as HTMLInputElement).value)" @keydown="tast">
+      <input v-else-if="live" ref="felt" :value="liveTekst" class="felt" placeholder="Svar til Claude …" @input="skriv(($event.target as HTMLInputElement).value)" @keydown="tast">
       <span v-else class="skriver">{{ prompt.slice(0, skrevet) }}<span class="markor" /></span>
-      <span class="send">↑</span>
+      <span class="send" :class="{ klikkbar: live && !sendt }" @click.stop="live && !sendt && send()">↑</span>
     </div>
   </div>
 </template>
@@ -232,6 +262,8 @@ onBeforeUnmount(() => {
 .svar-rad {
   display: flex;
   gap: 0.6rem;
+}
+.samtale > * + * {
   margin-top: 0.6rem;
 }
 .claude {
@@ -308,5 +340,8 @@ onBeforeUnmount(() => {
   display: grid;
   place-items: center;
   font-weight: 700;
+}
+.send.klikkbar {
+  cursor: pointer;
 }
 </style>

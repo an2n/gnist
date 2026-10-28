@@ -34,10 +34,6 @@ mdc: true
 <Roboter />
 </div>
 
-<!--
-I dag skal vi se på AI-mønstrene som avslører deg. Men først litt om meg.
--->
-
 ---
 
 <div class="h-full flex items-center justify-center gap-16">
@@ -79,9 +75,10 @@ clicks: 2
 
 <!--
 Hvordan kan jeg hjelpe deg i dag?
-Skriv en intro jeg kan lese opp på Gnist presentasjonen min.
 
-Hvis dere ikke ser så er det ganske mange typisk AI mønstre i denne introen.
+Jo, skriv en intro jeg kan lese opp til Gnist presentasjonen min.
+
+Her var det mange typiske AI mønstre.
 -->
 
 ---
@@ -102,15 +99,16 @@ clicks: 1
 </div>
 
 <!--
-Leserne merker det.
-Jeg kom over denne artikkelen i August som fikk gjennomgå på Reddit. Ikke pga. selve innholdet, men de reagerte på at den var tydelig skrevet med AI.
+Og det er ikke bare jeg som merker det, leserne merker det.
+
+Jeg kom over denne artikkelen i August som fikk gjennomgå på Reddit. Ikke pga. selve innholdet, men at leserne reagerte på at den var tydelig skrevet ved hjelp av AI.
 -->
 
 ---
 clicks: 1
 ---
 
-# … og de liker det ikke
+# … og de blir lei
 
 <div class="grid grid-cols-2 gap-8 items-start">
 <Kode24 tittel="– Forbud mot KI er dømt til å feile" rolle="Ansvarlig redaktør i kode24" dato="15.04.2026">
@@ -124,50 +122,18 @@ clicks: 1
 </div>
 
 <!--
-Og de liker det ikke...
+Og de blir lei.
 
-Her et innlegg på Kode24 som fikk en del sinte fjes, og en leser skrev: «Du bruker tankestrek = Da er skrevet av ChatGPT.»
--->
+Her et innlegg på Kode24 som fikk en del sinte fjes, og en leser skrev: «Du bruker tankestrek = Det er skrevet av ChatGPT.»
 
----
-
-# Hvor flinke er vi til å avsløre AI?
-
-<div class="grid grid-cols-2 gap-8">
-<div class="stat">
-  <div class="hvem">Folk som sjelden bruker AI til å skrive</div>
-  <div class="stort">57 %</div>
-  <div class="del">av AI-tekstene ble oppdaget</div>
-  <div class="bar"><div class="fyll" style="width: 57%"></div><div class="gjett"></div></div>
-  <div class="hva">Men mistenkte også halvparten av de ekte</div>
-</div>
-<div class="stat">
-  <div class="hvem">Folk som bruker AI mye til å skrive</div>
-  <div class="stort">93 %</div>
-  <div class="del">av AI-tekstene ble oppdaget</div>
-  <div class="bar"><div class="fyll" style="width: 93%"></div><div class="gjett"></div></div>
-  <div class="hva">Mistenkte bare 4 % av de ekte</div>
-</div>
-</div>
-
-<div class="mt-3 text-xs opacity-60">Russell, Karpinska og Iyyer (2025), ACL: 300 artikler, samme tekster for begge grupper</div>
-
-<div v-click class="mt-6 text-2xl font-serif">
-Det er ikke magefølelse. Det er mønstre, og mønstre kan læres.
-</div>
-
-<!--
-Hvor flinke er vi egentlig til å avsløre AI?
-De som bruker AI mye, er veldig flinke. I en studie fra i fjor fant de 93 prosent av AI-tekstene. Derimot folk som sjelden bruker AI, fant bare litt over halvparten.
-
-Så det er ikke magefølelse. Det er mønstre, og det kan læres.
+Nå sier jeg ikke at det stemmer i alle tilfeller, men tankestreken har blitt mer  fremtredende nå enn før.
 -->
 
 ---
 clicks: 4
 ---
 
-# Hvorfor skriver AI sånn?
+# Så hvorfor skriver AI sånn?
 
 <div class="hvorfor grid grid-cols-3 gap-5 mt-6">
 <div v-click="1" class="kort">
@@ -200,7 +166,7 @@ clicks: 4
 </div>
 
 <!--
-Men hvorfor skriver AI egentlig sånn? Det finnes ikke ett fasitsvar, men det er tre forklaringer som går igjen.
+Så hvorfor skriver AI egentlig sånn? Det finnes ikke ett fasitsvar, men det er tre forklaringer som går igjen.
 
 Den første er at den velger det vanligste. Den fungerer litt som autofullfør på mobilen. Hvis jeg sier «i en verden i stadig …», hva tenker dere da?
 
@@ -210,7 +176,41 @@ Den andre er at den er trent til å behage. Når modellene trenes, får folk to 
 De velger ofte det lange svaret med lister og fet skrift, selv om det korte sier det samme. 
 
 Så det er det den lærer.
-Og den tredje er at den er mest trent på engelsk. Så selv når den skriver norsk, skinner engelsken ofyr gjennom.
+Og den tredje er at den er mest trent på engelsk. Så selv når den skriver norsk, skinner engelsken ofte gjennom.
+-->
+
+---
+
+# Klarer vi å se det?
+
+<div class="grid grid-cols-2 gap-8">
+<div class="stat">
+  <div class="hvem">Folk som sjelden bruker AI til å skrive</div>
+  <div class="stort">57 %</div>
+  <div class="del">av AI-tekstene ble oppdaget</div>
+  <div class="bar"><div class="fyll" style="width: 57%"></div><div class="gjett"></div></div>
+  <div class="hva">Men mistenkte også halvparten av de ekte</div>
+</div>
+<div class="stat">
+  <div class="hvem">Folk som bruker AI mye til å skrive</div>
+  <div class="stort">93 %</div>
+  <div class="del">av AI-tekstene ble oppdaget</div>
+  <div class="bar"><div class="fyll" style="width: 93%"></div><div class="gjett"></div></div>
+  <div class="hva">Mistenkte bare 4 % av de ekte</div>
+</div>
+</div>
+
+<div class="mt-3 text-xs opacity-60">Russell, Karpinska og Iyyer (2025), ACL: 300 artikler, samme tekster for begge grupper</div>
+
+<div v-click class="mt-6 text-2xl font-serif">
+Det er ikke magefølelse. Det er mønstre, og mønstre kan læres.
+</div>
+
+<!--
+Men klarer vi egentlig å se det?
+De som bruker AI mye, er veldig flinke. I en studie fra i fjor fant de 93 prosent av AI-tekstene. Derimot folk som sjelden bruker AI, fant bare litt over halvparten.
+
+Så det er ikke magefølelse. Det er mønstre, og det kan læres.
 -->
 
 ---
@@ -302,10 +302,13 @@ clicks: 1
 </div>
 
 <!--
-Først har vi oppblåst betydning. Det er når helt vanlige ting blir gjort til noe veldig stort.
+Den første vi har er oppblåst betydning.
+
+Det er når helt vanlige ting blir gjort til noe veldig stort.
+
 Her er en melding på Teams om at kontoret har fått en ny toastmaskin.
-«Den markerer et viktig vendepunkt for kontoret vårt.»
-Det er jo bare en toastmaskin.
+
+«Den markerer et viktig vendepunkt for kontoret vårt.» Det er jo bare en toastmaskin.
 -->
 
 ---
@@ -671,25 +674,6 @@ Den viser til studien vi så i starten. Her stemmer tallene, men sjekk alltid se
 -->
 
 ---
-
-# Kilder
-
-<div class="kilder">
-
-- NRK Ytring: [Jeg har sluttet med kontor](https://www.nrk.no/artikkel/jeg-har-sluttet-med-kontor-1526112) · r/norge: «Jeg har sluttet med kontor»
-- kode24: [– Forbud mot KI er dømt til å feile](https://www.kode24.no/artikkel/forbud-mot-ki-er-domt-til-a-feile/260952)
-- Wikipedia: [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)
-- Russell, Karpinska og Iyyer (2025), ACL: [People who frequently use ChatGPT for writing tasks are accurate and robust detectors of AI-generated text](https://aclanthology.org/2025.acl-long.267/)
-- Reinhart m.fl. (2025), PNAS: [Do LLMs write like humans? Variation in grammatical and rhetorical styles](https://www.pnas.org/doi/10.1073/pnas.2422455122)
-- Singhal m.fl. (2024), COLM: [A Long Way to Go: Investigating Length Correlations in RLHF](https://arxiv.org/abs/2310.03716)
-- LMSYS (2024): [Does style matter? Disentangling style and substance in Chatbot Arena](https://www.lmsys.org/blog/2024-08-28-style-control/)
-- Schut, Gal og Farquhar (2025), arXiv: [Do Multilingual LLMs Think In English?](https://arxiv.org/abs/2502.15603)
-- EQ-Bench: [Creative Writing Leaderboard](https://eqbench.com/creative_writing.html)
-- Ghostwriter: [github.com/an2n/ghostwriter](https://github.com/an2n/ghostwriter)
-
-</div>
-
----
 clicks: 1
 ---
 
@@ -724,4 +708,23 @@ class: text-center
 
 <div class="mt-8 flex justify-center items-center gap-4">
   <a class="linkedin" href="https://www.linkedin.com/in/anton-lilleby-987030105/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>linkedin.com/in/anton-lilleby</a>
+</div>
+
+---
+
+# Kilder
+
+<div class="kilder">
+
+- NRK Ytring: [Jeg har sluttet med kontor](https://www.nrk.no/artikkel/jeg-har-sluttet-med-kontor-1526112) · r/norge: «Jeg har sluttet med kontor»
+- kode24: [– Forbud mot KI er dømt til å feile](https://www.kode24.no/artikkel/forbud-mot-ki-er-domt-til-a-feile/260952)
+- Wikipedia: [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)
+- Russell, Karpinska og Iyyer (2025), ACL: [People who frequently use ChatGPT for writing tasks are accurate and robust detectors of AI-generated text](https://aclanthology.org/2025.acl-long.267/)
+- Reinhart m.fl. (2025), PNAS: [Do LLMs write like humans? Variation in grammatical and rhetorical styles](https://www.pnas.org/doi/10.1073/pnas.2422455122)
+- Singhal m.fl. (2024), COLM: [A Long Way to Go: Investigating Length Correlations in RLHF](https://arxiv.org/abs/2310.03716)
+- LMSYS (2024): [Does style matter? Disentangling style and substance in Chatbot Arena](https://www.lmsys.org/blog/2024-08-28-style-control/)
+- Schut, Gal og Farquhar (2025), arXiv: [Do Multilingual LLMs Think In English?](https://arxiv.org/abs/2502.15603)
+- EQ-Bench: [Creative Writing Leaderboard](https://eqbench.com/creative_writing.html)
+- Ghostwriter: [github.com/an2n/ghostwriter](https://github.com/an2n/ghostwriter)
+
 </div>
