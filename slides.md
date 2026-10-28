@@ -137,8 +137,9 @@ clicks: 1
 
 <div class="grid grid-cols-[3fr_2fr] gap-10 items-center mt-6">
 <div>
-<Talken />
-<img src="/talken-taler.png" alt="300+ taler laget" class="h-9 mt-5" />
+<Talken>
+<img src="/talken-taler.png" alt="300+ taler laget" class="h-9 mix-blend-multiply" />
+</Talken>
 </div>
 <div class="text-2xl font-serif">
 <div>Jeg selger AI-skrevne taler til bryllup, konfirmasjon og mer.</div>
