@@ -195,7 +195,7 @@ clicks: 2
 </Harness>
 
 <!--
-Wow, så de som bruker mye AI selv, er faktisk best til å avsløre det.
+Wow, så studier viser at de som bruker mye AI selv, er faktisk veldig gode på å avsløre det.
 
 Det er ikke magefølelse, det er mønstre, og de kan læres.
 -->
