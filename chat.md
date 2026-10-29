@@ -67,10 +67,6 @@ clicks: 3
 </Harness>
 
 <!--
-Hvordan kan jeg hjelpe deg i dag?
-
-Skriv en intro jeg kan lese opp på Gnist presentasjonen min.
-
 Selvfølgelig! Her er en intro du kan lese opp:
 
 Hei, jeg heter Anton 👋 Jeg er konsulent i Miles 🫶 Flyttet fra Oslo til Bergen for kjærligheten – et avgjørende vendepunkt. [Sett inn anekdote om regn her]
@@ -81,7 +77,7 @@ I dag skal du lære å se mønstrene, unngå dem og skrive unikt. ☀️
 
 Vil du at jeg gjør den mer personlig?
 
-Nice! Nei, men er det noen AI-mønstre her som kan avsløre meg?
+Nei, men er det noen AI-mønstre her som kan avsløre meg?
 
 Oi.. det var mange!
 -->
@@ -115,7 +111,7 @@ clicks: 2
 </Harness>
 
 <!--
-Oi, en artikkel på kode24 fikk masse sinte fjes fordi AI ble brukt til skrivingen.
+Ikke så mye pent, nei. En artikkel på kode24 fikk masse sinte fjes fordi AI ble brukt til skrivingen.
 
 En skriver der:
 Bruker du tankestrek, så er det ChatGPT.
@@ -163,13 +159,22 @@ clicks: 3
 
 <!--
 Den velger det vanligste.
-Så neste vektor er bare en sannsynlighet.
+
+For hvert ord regner den ut hvor sannsynlig alle mulige neste ord er, og velger som regel et av de mest sannsynlige.
+
+Derfor blir det «i en verden i stadig endring», og sjelden noe overraskende.
 
 Den er trent til å behage.
-Folk liker å stemme på de lange svarene.
+
+Når modellene trenes, velger folk mellom to svar, og de stemmer oftere på det lange med lister og fet skrift.
+
+Så den lærer at lengre og mer pynt gir bedre score.
 
 Og den er mest trent på engelsk.
-Og da oppstår klisjene...
+
+Det meste av treningsdataene er engelsk, og den tenker nærmest på engelsk inni seg, også når den svarer på norsk.
+
+Og da oppstår klisjeene...
 -->
 
 ---

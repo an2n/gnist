@@ -17,17 +17,17 @@ export const samtale: Steg[] = [
 <p><mark data-nr="3">Vil du at jeg gjør den mer personlig?</mark></p>`,
   },
   {
-    prompt: "Nice! Nei, men er det noen AI-mønstre her som kan avsløre meg?",
+    prompt: "Nei, men er det noen AI-mønstre her som kan avsløre meg?",
     marker: 3,
     svar: `<p>Ja, ganske mange, faktisk. Jeg har markert dem og samlet dem i fanen.</p>`,
   },
   {
     prompt: "Men merker folk egentlig at noe er skrevet med AI?",
-    svar: `<p>Å ja, og de sier fra. I august havnet et innlegg fra NRK Ytring på Reddit, og den øverste kommentaren listet opp tegnene: korte setninger, mange avsnitt og «ikke slik, men slik».</p>`,
+    svar: `<p>Ikke sant, her er en artikkel fra NRK i august i år som fikk gjennomgå på Reddit fordi den var skrevet med mye AI.</p>`,
   },
   {
     prompt: "Og hva føler folk om det?",
-    svar: `<p>Ikke så mye pent. Da kode24 skrev at et forbud mot KI er dømt til å feile, var 31 av 43 reaksjoner sinte fjes. En leser skrev: «Du bruker tankestrek = Det er skrevet av ChatGPT.»</p>`,
+    svar: `<p>Ikke så mye pent, nei. Da kode24 skrev at et forbud mot KI er dømt til å feile, var 31 av 43 reaksjoner sinte fjes. En leser skrev: «Du bruker tankestrek = Det er skrevet av ChatGPT.»</p>`,
   },
   {
     prompt: "Aha, dette er litt viktig for meg siden jeg selger AI-taler som en sidehustle.",
