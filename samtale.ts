@@ -17,7 +17,7 @@ export const samtale: Steg[] = [
 <p><mark data-nr="3">Vil du at jeg gjør den mer personlig?</mark></p>`,
   },
   {
-    prompt: "Nei, men er det noen AI-mønstre her som kan avsløre meg?",
+    prompt: "Nei, ser bra ut, men tror du de tenker det er skrevet av AI?",
     marker: 3,
     svar: `<p>Ja, ganske mange, faktisk. Jeg har markert dem og samlet dem i fanen.</p>`,
   },

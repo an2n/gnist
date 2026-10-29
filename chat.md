@@ -77,7 +77,7 @@ I dag skal du lære å se mønstrene, unngå dem og skrive unikt. ☀️
 
 Vil du at jeg gjør den mer personlig?
 
-Nei, men er det noen AI-mønstre her som kan avsløre meg?
+Nei, ser bra ut, men tror du de tenker det er skrevet av AI?
 
 Oi.. det var mange!
 -->
@@ -95,7 +95,9 @@ clicks: 2
 </Harness>
 
 <!--
-Ikke sant, her er en artikkel fra NRK i August i år som fikk gjennomgå på Reddit fordi den var skrevet med mye AI.
+Jøss, så en kronikk på NRK fikk skikkelig gjennomgå på Reddit?
+
+En har til og med telt at han skriver «ikke» 33 ganger.
 -->
 
 ---
@@ -111,10 +113,9 @@ clicks: 2
 </Harness>
 
 <!--
-Ikke så mye pent, nei. En artikkel på kode24 fikk masse sinte fjes fordi AI ble brukt til skrivingen.
+Au, 31 av 43 er sinte fjes.
 
-En skriver der:
-Bruker du tankestrek, så er det ChatGPT.
+Og bruker du tankestrek, så er det visst ChatGPT.
 -->
 
 ---
@@ -128,7 +129,7 @@ clicks: 1
 </Harness>
 
 <!--
-Aha, dette er litt viktig for meg, siden jeg selger AI-taler som en sidehustle.
+Ja, det er den! Over 300 taler så langt.
 
 Høres talene ut som AI, har jeg bommet :)
 -->
@@ -158,6 +159,8 @@ clicks: 3
 </Harness>
 
 <!--
+Okey, så det er tre forklaringer som går igjen.
+
 Den velger det vanligste.
 
 For hvert ord regner den ut hvor sannsynlig alle mulige neste ord er, og velger som regel et av de mest sannsynlige.
@@ -192,9 +195,9 @@ clicks: 2
 </Harness>
 
 <!--
-Ikke sant, så studien viser at de som bruker mye AI i hverdagen er gode på å finne AI-tekster
+Wow, så de som bruker mye AI selv, er faktisk best til å avsløre det.
 
-Så det er ikke magefølelse, det er mønstre, og de kan læres.
+Det er ikke magefølelse, det er mønstre, og de kan læres.
 -->
 
 ---
@@ -257,9 +260,9 @@ clicks: 2
 </Harness>
 
 <!--
-Wikipedia har samlet nesten 50 AI mønstre deres skribenter har funnet.
+Aha, så Wikipedia har en liste over nesten 50 AI-mønstre som bidragsyterne deres har funnet?
 
-La oss se på ti av dem nærmere.
+La oss se nærmere på ti av dem.
 -->
 
 ---
@@ -279,7 +282,7 @@ clicks: 2
 </Harness>
 
 <!--
-Lise Hansen skriver at kontoret har fått ny toastmaskin, og den «markerer et viktig vendepunkt». Ja dette vil jeg også kalt oppblåst.
+Haha, så toastmaskinen «markerer et viktig vendepunkt» for kontoret? Ja, det vil jeg også kalle oppblåst.
 
 Det er jo bare en toastmaskin.
 -->
@@ -323,11 +326,11 @@ clicks: 2
 </Harness>
 
 <!--
-Denne er ganske uheldig, rester fra chatten.
+Au, den er ganske uheldig.
 
 «Gratulerer så mye med 50-årsdagen, navn!»
 
-Stakkars onkel Geir.
+Håper Geir har humor.
 -->
 
 ---
@@ -347,7 +350,9 @@ clicks: 2
 </Harness>
 
 <!--
-Alt blir fantastisk og uforglemmelig, også bryllupstalen.
+Ja, her er alt fantastisk og uforglemmelig. Og så «denne unike reisen» …
+
+Mari og Jonas fortjener en tale som handler om dem.
 -->
 
 ---
@@ -366,9 +371,9 @@ clicks: 2
 </Harness>
 
 <!--
-Finn annonse der det står fem minutter til Bybanen, «noe som understreker den sentrale beliggenheten».
+Fem minutter til Bybanen, «noe som understreker den sentrale beliggenheten».
 
-Det skjønte vi jo selv, men AI har ofte behov for å komme med en tolkning.
+Ja, det skjønte vi jo selv :)
 -->
 
 ---
@@ -389,10 +394,9 @@ clicks: 2
 </Harness>
 
 <!--
-Endelig julebord påmelding!
+Endelig julebordpåmelding!
 
-«Ikke bare X, men Y».
-«Det handler ikke om maten, men om menneskene.» 
+«Det handler ikke om maten, men om menneskene.»
 
 Selv om det handler litt om maten også :)
 -->
@@ -433,9 +437,9 @@ clicks: 2
 </Harness>
 
 <!--
-Ser man det
+Ja, hvilke eksperter da? Og hvem er de fleste foreldre?
 
-Eksperter anbefaler, studier viser … men hvem da? Dårlige kilder er typisk AI.
+Det hadde jeg spurt om i gruppechatten.
 -->
 
 ---
@@ -458,9 +462,9 @@ clicks: 2
 </Harness>
 
 <!--
-Fet skrift, emojier og tankestreker overalt.
+Haha, ja, den har jeg sett.
 
-Dette kjenner man sikkert igjen fra LinkedIn...
+«Stolt og ydmyk», og tre Ting Med Store Forbokstaver.
 -->
 
 ---
@@ -484,7 +488,7 @@ clicks: 3
 <!--
 Så en statusrapport som viser at man er seks uker forsinket og 40 prosent over budsjett.
 
-Men er fortsatt godt posisjonert for fremtiden.
+Men er fortsatt godt posisjonert for fremtiden. This is fine :)
 -->
 
 ---
@@ -538,7 +542,7 @@ clicks: 1
 </Harness>
 
 <!--
-Denne prompten alene kan fjerne mange av AI mønstrene Ta gjerne bilde, eller kopier senere.
+Denne prompten alene kan fjerne mange av AI mønstrene. Presentasjonen min ligger på nett, så kopier den gjerne senere.
 -->
 
 ---
